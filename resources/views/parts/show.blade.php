@@ -1,0 +1,72 @@
+@extends('parts.app')
+
+@section('content')
+
+<div class="row justify-content-center mt-3">
+    <div class="col-md-8">
+
+        <div class="card">
+            <div class="card-header">
+                <div class="float-start">
+                    Product Information
+                </div>
+                <div class="float-end">
+                    <a href="{{ route('parts.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                </div>
+            </div>
+            <div class="card-body">
+
+                    <div class="row">
+                        <label for="part_number" class="col-md-4 col-form-label text-md-end text-start"><strong>Part Number:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->part_number }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="part_description" class="col-md-4 col-form-label text-md-end text-start"><strong>Part Description:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->part_description }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="make" class="col-md-4 col-form-label text-md-end text-start"><strong>Make:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->make }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="uom" class="col-md-4 col-form-label text-md-end text-start"><strong>Unit Of Measurement:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->uom }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="price" class="col-md-4 col-form-label text-md-end text-start"><strong>Price:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->price }}
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <label for="hsn_code" class="col-md-4 col-form-label text-md-end text-start"><strong>HSN Code:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->hsn_code }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="gst_rate" class="col-md-4 col-form-label text-md-end text-start"><strong>GST Rate:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $part->gst_rate }}
+                        </div>
+                    </div>
+
+                    
+        
+            </div>
+        </div>
+    </div>    
+</div>
+    
+@endsection
