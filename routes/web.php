@@ -24,6 +24,15 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PasswordController;
 
 
+
+Route::get('/', function () {
+    return 'Laravel Home Test';
+});
+
+
+
+
+
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::middleware(['auth', 'verified'])->group(function () {
      Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
