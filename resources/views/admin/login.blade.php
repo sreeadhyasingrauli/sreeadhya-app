@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('admin.login.submit') }}">
+    <form method="POST" action="{{ route('login.post') }}">
         @csrf {{-- Crucial security mechanism in Laravel --}}
         <div>
             <label>Email:</label>

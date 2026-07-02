@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProductController;
@@ -22,8 +23,8 @@ use App\Http\Controllers\Auth\Admin\LoginController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PasswordController;
 
-Route::get('/login', [AuthController::class, 'index'])->name('login');
 
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::middleware(['auth', 'verified'])->group(function () {
      Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/companies', [CompanyController::class, 'index'])->name('dashboard.companies');
@@ -39,28 +40,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('settings.edit');
 });
 
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+    Route::patch('/settings', [SettingsController::class, 'update'])->name('settings.update');
+});
+
 //Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
-
-
-
+Route::get('registration', [AuthController::class, 'registration'])->name('register');
+Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
  
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/dashboard/invoices', [InvoiceController::class, 'index'])->name('dashboard.invoices');
 
+Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
+Route::get('registration', [AuthController::class, 'registration'])->name('register');
+Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
 
-
-
-
-
-
-
-
-
+//Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
