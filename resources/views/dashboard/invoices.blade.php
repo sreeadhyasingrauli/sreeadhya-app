@@ -1,4 +1,4 @@
-<x-dashboard-layout>
+<x-app-layout>
     <x-slot:title>Invoices - BillFlow Pro</x-slot:title>
 
     <div class="md:flex md:items-center md:justify-between mb-6">
@@ -16,4 +16,4 @@
     <div class="bg-white shadow rounded-lg p-6">
         <p class="text-gray-600">Active invoice lists, payment terms, and tracking history.</p>
     </div>
-</x-dashboard-layout>
+</x-app-layout>
