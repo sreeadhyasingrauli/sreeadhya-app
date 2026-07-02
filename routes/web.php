@@ -22,11 +22,10 @@ use App\Http\Controllers\Auth\Admin\LoginController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PasswordController;
 
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 
 Route::middleware(['auth', 'verified'])->group(function () {
- Route::get('/login', [AuthController::class, 'index'])->name('login');
- 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/companies', [CompanyController::class, 'index'])->name('dashboard.companies');
     Route::get('/dashboard/customers', [CustomerController::class, 'index'])->name('dashboard.customers');
     Route::get('/dashboard/products', [ProductController::class, 'index'])->name('dashboard.products');
