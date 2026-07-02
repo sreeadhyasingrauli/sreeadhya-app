@@ -39,24 +39,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('settings.edit');
 });
 
-
-
 //Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
+
+
  
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
-Route::get('/dashboard/invoices', [InvoiceController::class, 'index'])->name('dashboard.invoices');
 
-Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
-Route::get('registration', [AuthController::class, 'registration'])->name('register');
-Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
 
-//Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+
 
 
 
