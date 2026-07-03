@@ -92,6 +92,7 @@
                 <th>SL#</th>
                 <th>Part Number</th>
                 <th>Part Description</th>
+                <th>HSN Code</th>
                 <th>Qty</th>
                 <th>Unit</th>
                 <th>Price</th>
@@ -104,6 +105,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->part_number }}</td>
                 <td>{{ $item->part_description }}</td>
+                <td>{{ $item->hsn_code }}</td>
                 <td>{{ $item->inv_quantity }}</td>
                  <td>{{ $item->uom }}</td>
                 <td>{{ $item->unit_price }}</td>
@@ -128,7 +130,7 @@
         
             <td style="text-align: right;">
                 <strong>Sub-Total :</strong> {{ $invoice->basic_amount }}<br>
-                <p><strong>GST Amount:</strong> {{ $invoice->gst_amount }}</p>
+                <p><strong>GST Amount @</strong> {{ $item->gst_rate }}% : {{ $invoice->gst_amount }}</p>
                 <strong>Invoice Amount :</strong> {{ $invoice->invoice_amount }}
             </td>
         </tr>

@@ -1,1 +1,0 @@
-<?php /**PATH C:\Users\pksso\sreeadhya\resources\views\navigation.blade.php ENDPATH**/ ?>

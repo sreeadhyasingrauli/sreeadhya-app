@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('part_description');
             $table->integer('inv_quantity');
             $table->string('uom');
+            $table->unsignedBigInteger('hsn_code')->default(0);
             $table->decimal('unit_price', 15, 2);
             $table->decimal('sub_total', 15, 2);
             $table->decimal('gst_rate', 5, 2);

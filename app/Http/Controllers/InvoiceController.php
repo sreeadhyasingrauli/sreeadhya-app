@@ -94,6 +94,7 @@ class InvoiceController extends Controller
                     'inv_quantity' => $item['inv_quantity'],
                     'unit_price' => $item['unit_price'],
                     'uom' => ' ',
+                    'hsn_code' => 0,
                     'sub_total' => $subtotal,
                     'gst_rate' => 0.00,
                     'gst_amount' => 0.00,
@@ -105,7 +106,15 @@ class InvoiceController extends Controller
                 'invoice_items.part_description' => DB::raw('purchase_order_items.part_description'),
                 'invoice_items.uom' => DB::raw('purchase_order_items.uom'),
                 'invoice_items.updated_at' => now(), // Manually update timestamps when using DB builder
-            ]);
+                ]);
+                DB::table('invoice_items')
+                ->join('products', 'invoice_items.part_number', '=', 'products.part_number')
+                ->update([
+                'invoice_items.hsn_code' => DB::raw('products.hsn_code'),
+                'invoice_items.gst_rate' => DB::raw('products.gst_rate'),
+                'invoice_items.gst_amount' => DB::raw('products.gst_rate * invoice_items.sub_total / 100'),
+                'invoice_items.updated_at' => now(), // Manually update timestamps when using DB builder
+                ]);
 
             }
 
