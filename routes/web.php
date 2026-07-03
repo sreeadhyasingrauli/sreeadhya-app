@@ -23,8 +23,14 @@ use App\Http\Controllers\Auth\Admin\LoginController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PasswordController;
 
+Route::get('/', function () {
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : redirect()->route('login');
+});
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
+
 Route::middleware(['auth', 'verified'])->group(function () {
      Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/companies', [CompanyController::class, 'index'])->name('dashboard.companies');
