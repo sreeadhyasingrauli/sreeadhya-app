@@ -12,7 +12,7 @@
         @endsession
 
         <div class="card">
-            <div class="card-header">Offer List</div>
+            <div class="card-header">Purchase Order List</div>
             <div class="card-body">
                 <a href="{{ route('purchase-orders.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Purchase Order</a>
                 <table class="table table-striped table-bordered">
@@ -32,7 +32,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                        @forelse ( $order as $po)
+                        @forelse ( $purchaseorder as $po)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                              <td>{{ $po->customer_id }}</td>
@@ -43,10 +43,7 @@
                             <td>{{ $po->gst_value }}</td>
                             <td>{{ $po->total_value }}</td>
                             <td>{{ $po->status }}</td>
-                                                  
-                             
-
-
+                            
                             <td>
                                 <form action="{{ route('purchase-orders.destroy', $po->id) }}" method="post">
                                     @csrf
@@ -61,14 +58,14 @@
                         @empty
                             <td colspan="6">
                                 <span class="text-danger">
-                                    <strong>No Offer Found!</strong>
+                                    <strong>No Purchase Order Found!</strong>
                                 </span>
                             </td>
                         @endforelse
                     </tbody>
                   </table>
 
-                  {{ $order->links() }}
+                  {{ $purchaseorder->links() }}
 
             </div>
         </div>

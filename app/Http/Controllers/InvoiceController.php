@@ -218,10 +218,10 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice) : RedirectResponse
     {
         //
-        $invoice->update(['invoice_status' => 'Deleted']);
+        $invoice->update(['invoice_status' => 'Cancelled']);
         $invoice->delete();
 
         return redirect()->route('invoices.index')
-                ->withSuccess('Invoice is deleted successfully.');
+                ->withSuccess('Invoice is cancelled successfully.');
     }
 }

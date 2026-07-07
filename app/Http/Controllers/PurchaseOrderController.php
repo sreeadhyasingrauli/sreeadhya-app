@@ -27,8 +27,8 @@ class PurchaseOrderController extends Controller
     public function index() : View
     {
         //
-        $order = PurchaseOrder::latest()->paginate(5);
-        return view('purchase-orders.index', compact('order'));
+        $purchaseorder = PurchaseOrder::latest()->paginate(5);
+        return view('purchase-orders.index', compact('purchaseorder'));
         
     }
     public function create() : View
@@ -61,10 +61,10 @@ class PurchaseOrderController extends Controller
         ]);
 
         // 2. Encapsulated DB Transaction 
-        $order = DB::transaction(function () use ($validated) {
+            $purchaseorder = DB::transaction(function () use ($validated) {
             
             // Create the primary Purchase Order Header record
-           $order = PurchaseOrder::create([
+           $purchaseorder = PurchaseOrder::create([
                 'customer_id' => $validated['customer_id'],
                 'po_number' => $validated['po_number'], // Unique Number Variant
                 'po_date' => $validated['po_date'],
@@ -88,7 +88,7 @@ class PurchaseOrderController extends Controller
                 $gstValue   += $gst_amount; 
                 $totalValue = ($totalAmount + $gstValue) ;
                 
-                $order->items()->create([
+                $purchaseorder->items()->create([
                     'part_number' => $item['part_number'],
                     'part_description' => $item['part_description'],
                     'quantity' => $item['quantity'],
@@ -102,11 +102,11 @@ class PurchaseOrderController extends Controller
 
             // Sync structural grand total balance calculation back to base PO
             
-            $order->update(['basic_value' => $rounded = round($totalAmount, 2)]);
-            $order->update(['gst_value' => $rounded = round($gstValue, 2)]);
-            $order->update(['total_value' => $rounded = round($totalValue, 2)]);
+            $purchaseorder->update(['basic_value' => $rounded = round($totalAmount, 2)]);
+            $purchaseorder->update(['gst_value' => $rounded = round($gstValue, 2)]);
+            $purchaseorder->update(['total_value' => $rounded = round($totalValue, 2)]);
 
-            return $order;
+            return $purchaseorder;
         });
 
          return redirect()->route('purchase-orders.index')
@@ -114,7 +114,7 @@ class PurchaseOrderController extends Controller
     }
     public function generateOrderAcceptance($id)
     {
-        $order = PurchaseOrder::with('items')->findOrFail($id);
+        $purchaseorder = PurchaseOrder::with('items')->findOrFail($id);
         $products = Product::all(); 
         $allCompanies = Company::all();
         $customerWithPO = DB::table('customers')
@@ -123,13 +123,13 @@ class PurchaseOrderController extends Controller
         ->select('customers.*', )
         ->get();
         // Load the view and pass the order data
-        $pdf = Pdf::loadView('pdf.order-acceptance', compact('order','customerWithPO','allCompanies','products'));
+        $pdf = Pdf::loadView('pdf.order-acceptance', compact('purchaseorder','customerWithPO','allCompanies','products'));
 
         // Option 1: Download the PDF directly to user's computer
-        return $pdf->download('order-acceptance-' . $order->id . '.pdf');
+        return $pdf->download('order-acceptance-' . $purchaseorder->id . '.pdf');
 
         // Option 2: Stream the PDF in the browser
-        // return $pdf->stream('order-acceptance-' . $order->id . '.pdf');
+        // return $pdf->stream('order-acceptance-' . $purchaseorder->id . '.pdf');
     }
 
     public function show(Request $request) : View
@@ -147,11 +147,10 @@ class PurchaseOrderController extends Controller
         //
         
     }
-    public function destroy(PurchaseOrder $order) : RedirectResponse
+    public function destroy(PurchaseOrder $purchaseorder) : RedirectResponse
     {
         //
-         $order->delete();
-
+         $purchaseorder->delete();
         return redirect()->back()
                 ->withSuccess('Purchase Order is deleted successfully.');
         
