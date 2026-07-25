@@ -14,23 +14,24 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             // Connects the order directly to the customer (customer table)
-            $table->integer('customer_id');
-            
+             $table->foreignId('customer_id')->constrained('customers', 'customer_id')->onDelete('cascade');
+
             // Order tracking and amounts
             $table->string('order_number')->unique();
-            $table->decimal('total_amount', 10, 2);
-            $table->decimal('tax_amount', 10, 2)->default(0.00);
-            $table->decimal('shipping_amount', 10, 2)->default(0.00);
-            
-            // Status states
-            $table->string('status')->default('pending'); // pending, processing, completed, declined
-            $table->string('payment_status')->default('unpaid'); // unpaid, paid, refunded
-            $table->string('payment_method')->nullable(); // stripe, paypal, cod
-            
-            // Delivery Information
-            $table->string('shipping_address');
-            $table->string('billing_address');
-            $table->string('customer_phone')->nullable();
+            $table->date('order_date');
+            $table->decimal('sub_total', 15, 2)->default(0.00);
+            $table->decimal('gst_amount', 15, 2)->default(0.00);
+            $table->decimal('total_value', 15, 2)->default(0.00);
+            $table->date('valid_until');
+            $table->string('payment_terms');
+            $table->string('gst_terms');
+            $table->string('delivery_terms');
+            $table->string('pf_terms');
+            $table->string('pricebasis_terms');
+            $table->string('guarantee_terms');
+            $table->string('ld_terms');
+            $table->string('other_terms');
+            $table->string('order_status')->default('pending');
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('customer_id');
             $table->string('offer_number');
             $table->date('offer_date');
+            $table->string('ref_number');
+            $table->date('ref_date');
             $table->date('valid_until');
             $table->string('payment_terms');
             $table->string('gst_terms');

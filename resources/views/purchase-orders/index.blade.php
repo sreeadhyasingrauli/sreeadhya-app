@@ -19,13 +19,17 @@
                     <thead>
                       <tr>
                         <th scope="col">S#</th>
-                        <th scope="col">Customer ID</th>
+                        <th scope="col">Vendor ID</th>
                         <th scope="col">PO Number</th>
                         <th scope="col">PO Date</th>
-                        <th scope="col">Delivery End Date</th>
-                        <th scope="col">BASIC AMOUNT</th>
-                        <th scope="col">GST AMOUNT</th>
-                        <th scope="col">Total Amount</th>
+                        <th scope="col">GST Terms</th>
+                        <th scope="col">Delivery Terms</th>
+                         <th scope="col">P&F</th>
+                        <th scope="col">Transport</th>
+                        <th scope="col">Basic Value</th>
+                        <th scope="col">GST Value</th>
+                        <th scope="col">PF Value</th>
+                        <th scope="col">Total Value</th>
                         <th scope="col">Status</th>
                         
                         <th scope="col">Action</th>
@@ -35,12 +39,16 @@
                         @forelse ( $purchaseorder as $po)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                             <td>{{ $po->customer_id }}</td>
+                             <td>{{ $po->vendor_id }}</td>
                             <td>{{ $po->po_number }}</td>
                             <td>{{ $po->po_date }}</td>
-                            <td>{{ $po->del_end_date }}</td>
+                            <td>{{ $po->gst_terms }}</td>
+                            <td>{{ $po->delivery_terms }}</td>
+                            <td>{{ $po->pf_terms }}</td>
+                            <td>{{ $po->transport }}</td>
                             <td>{{ $po->basic_value }}</td>
                             <td>{{ $po->gst_value }}</td>
+                            <td>{{ $po->pf_value }}</td>
                             <td>{{ $po->total_value }}</td>
                             <td>{{ $po->status }}</td>
                             
@@ -49,7 +57,7 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <a href="{{ route('purchase-orders.order-acceptance', $po->id) }}" class="btn btn-primary"> Download</a>
+                                    <a href="{{ route('purchase-orders.purchase-order', $po->id) }}" class="btn btn-primary"> Download</a>
 
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this PO?');"><i class="bi bi-trash"></i> Delete</button>
                                 </form>

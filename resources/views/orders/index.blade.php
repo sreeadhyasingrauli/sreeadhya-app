@@ -19,51 +19,57 @@
                     <thead>
                       <tr>
                         <th scope="col">S#</th>
-                       
-                        <th scope="col">PO Number</th>
-                        <th scope="col">Grand Totall</th>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Order Number</th>
+                        <th scope="col">Order Date</th>
+                         <th scope="col">Valid Until</th>
+                        <th scope="col">Sub Total</th>
+                        <th scope="col">GST Amount</th>
+                        <th scope="col">Total Value</th>
+                        <th scope="col">Payment Terms</th>
+                        <th scope="col">Delivery Terms</th>
+                        <th scope="col">PF Terms</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Shipping Address</th>
-                       
+                                             
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @forelse ($order as $order)
+                        @forelse ($order as $ord)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            
-                            <td>{{ $order->po_number }}</td>
-                            <td>{{ $order->grand_total }}</td>
-                            <td>{{ $order->status }}</td>
-                            <td>{{ $order->shipping_address }}</td>
-                            
-                             
-
-
+                            <td>{{  $ord->customer_id }}</td>
+                            <td>{{ $ord->order_number }}</td>
+                             <td>{{ $ord->order_date }}</td>
+                              <td>{{ $ord->valid_until }}</td>
+                            <td>{{ $ord->sub_total }}</td>
+                            <td>{{ $ord->gst_amount }}</td>
+                            <td>{{ $ord->total_value }}</td>
+                            <td>{{ $ord->payment_terms }}</td>
+                            <td>{{ $ord->delivery_terms }}</td>
+                             <td>{{ $ord->pf_terms }}</td>
+                            <td>{{ $ord->order_status }}</td>
+                   
                             <td>
-                                <form action="{{ route('orders.destroy', $order->user_id) }}" method="post">
+                                <form action="{{ route('orders.destroy', $ord->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
 
-                                    <a href="{{ route('orders.show', $order->user_id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
+                                    <a href="{{ route('orders.order-acceptance', $ord->id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Download Order Acceptance</a>
 
-                                    <a href="{{ route('orders.edit', $order->user_id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
-
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this Offer?');"><i class="bi bi-trash"></i> Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this Order?');"><i class="bi bi-trash"></i> Delete</button>
                                 </form>
                             </td>
                         </tr>
                         @empty
                             <td colspan="6">
                                 <span class="text-danger">
-                                    <strong>No Offer Found!</strong>
+                                    <strong>No Order Found!</strong>
                                 </span>
                             </td>
                         @endforelse
                     </tbody>
                   </table>
-
                   {{ $order->links() }}
 
             </div>

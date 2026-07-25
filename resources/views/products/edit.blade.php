@@ -34,6 +34,16 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="alt_part_number" class="col-md-4 col-form-label text-md-end text-start">Alternate Part Number</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('alt_part_number') is-invalid @enderror" id="alt_part_number" name="alt_part_number" value="{{ $product->alt_part_number }}">
+                            @error('alt_part_number')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
 
                     <div class="mb-3 row">
                         <label for="part_description" class="col-md-4 col-form-label text-md-end text-start">Part Description</label>
@@ -92,7 +102,25 @@
                         </div>
                     </div>
                    
-                    
+                    <div class="mb-3 row">
+                        <label for="current_stock" class="col-md-4 col-form-label text-md-end text-start">Current Stock</label>
+                        <div class="col-md-6">
+                          <input type="number" class="form-control @error('current_stock') is-invalid @enderror" id="current_stock" name="current_stock" value="{{ $product->current_stock }}">
+                            @error('hsn_code')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="alert_level" class="col-md-4 col-form-label text-md-end text-start">Alert Level</label>
+                        <div class="col-md-6">
+                          <input type="number" class="form-control @error('alert_level') is-invalid @enderror" id="alert_level" name="alert_level" value="{{ $product->alert_level }}">
+                            @error('hsn_code')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update">
                     </div>

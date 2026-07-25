@@ -7,6 +7,11 @@
     <title>PKS Software - Order Management</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" crossorigin="anonymous">
+     <style>
+    html {
+        font-size: 12px; /* Adjust as needed (e.g., 0.85rem, 85%) */
+    }
+</style>
 </head>
 <body>   
 

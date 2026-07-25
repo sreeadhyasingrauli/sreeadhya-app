@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class PurchaseOrder extends Model
 {
     //
-    protected $fillable = ['customer_id', 'po_number', 'po_date', 'del_end_date','basic_value', 'gst_value','total_value','status'];
+    protected $fillable = ['vendor_id', 'po_number', 'po_date', 'gst_terms','delivery_terms','pf_terms','transport','basic_value', 'gst_value','pf_value','total_value','status'];
 
-    public function customer(): BelongsTo 
+    public function vendor(): BelongsTo 
     {
-      return $this->belongsTo(Customer::class);
+      return $this->belongsTo(Vendor::class);
     }
 
     public function items(): HasMany 

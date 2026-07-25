@@ -39,26 +39,25 @@
             <table class="info-table">
                  <tr>
             <td style="text-align: right;">
-                        <strong>ORDER ACCEPTANCE</strong>
+                        <strong>PURCHASE ORDER</strong>
                         </td>
             </tr>
              </table>
     <table class="info-table">
              <tr>
             <td style="text-align: left;">
-                <strong>Customer's Name & Address</strong> <br>
-                @foreach($customerWithPO as $customer)
-                <strong></strong> {{ $customer->customer_name }}<br>
-                 <p>{{ $customer->address_line1}}, {{ $customer->address_line2}}</p>
-                 <p>{{ $customer->city}}, {{ $customer->state}}-{{ $customer->pin_code}}</p>
+                <strong>Vendor's Name & Address</strong> <br>
+                @foreach($vendorWithPO as $vendor)
+                <strong></strong> {{ $vendor->vendor_name }}<br>
+                 <strong></strong>{{ $vendor->address_line1}}, {{ $vendor->address_line2}}<br>
+                 <strong></strong>{{ $vendor->city}}, {{ $vendor->state}}-{{ $vendor->pin_code}}<br>
              @endforeach
                 </td>
                 
             <td style="text-align: right;">
-                <strong>PO Number:</strong> {{ $order->po_number }}<br>
+                <strong>PO Number:</strong> {{ $purchaseorder->po_number }}<br>
+                 <strong>PO Date:</strong> {{ \Illuminate\Support\Carbon::parse($purchaseorder->po_date)->format('d-m-Y') }}<br>
                 
-                <p><strong>PO Date:</strong> {{ \Illuminate\Support\Carbon::parse($order->po_date)->format('d-m-Y') }}</p>
-                <strong>Delivery End Date :</strong> {{ \Illuminate\Support\Carbon::parse($order->del_end_date)->format('d-m-Y') }} 
             </td>
         </tr>
         
@@ -80,7 +79,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($order->items as $item)
+            @foreach($purchaseorder->items as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->part_number }}</td>
@@ -102,16 +101,20 @@
              </td>
         
             <td style="text-align: right;">
-                <strong>Basic Value :</strong> {{ $order->basic_value }}<br>
-                <p><strong>GST Value:</strong> {{ $order->gst_value }}</p>
-                <strong>Total Value :</strong> {{ $order->total_value }}
+                <strong>Basic Value :</strong> {{ $purchaseorder->basic_value }}<br>
+                <strong>GST Value:</strong> {{ $purchaseorder->gst_value }}<br>
+                <strong>Total Value :</strong> {{ $purchaseorder->total_value }} <br>
             </td>
         </tr>
         
     </table>
                  <div class="header"> </div>
     <div class="clear"></div>
-    <p style="margin-top: 50px;">Thank you for your Purchase Order placed on us, this is our official order acceptance.</p>
+    <strong>Terms and Conditions :</strong>  <br>
+
+    <p style="margin-top: 50px;">You are requested to please supply the goods as per the terms and conditions of the Purchase Order.</p>
+
+    
 
     <table class="content">
                <tr>

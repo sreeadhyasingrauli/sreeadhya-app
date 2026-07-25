@@ -16,12 +16,15 @@ return new class extends Migration
             $table->id('product_id'); 
             // Replaced primary() with unique()
             $table->string('part_number')->unique(); 
+            $table->string('alt_part_number')->nullable();
             $table->string('part_description');
             $table->string('make');
             $table->decimal('price', 15, 2);
             $table->string('uom');
             $table->unsignedBigInteger('hsn_code');
             $table->decimal('gst_rate', 5, 2);
+            $table->integer('current_stock')->default(0);
+            $table->integer('alert_level')->default(0);
             $table->timestamps();
         });
     }

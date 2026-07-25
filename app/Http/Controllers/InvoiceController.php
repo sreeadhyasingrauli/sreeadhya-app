@@ -7,8 +7,8 @@ use App\Utils\RupeeConverter;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
-use App\Models\PurchaseOrder;
-use App\Models\PurchaseOrderItem;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Customer;
@@ -35,8 +35,8 @@ class InvoiceController extends Controller
         $allCustomers = Customer::all();
          $allCompanies = Company::all();
          $allProducts = Product::all();
-         $allPOs  = PurchaseOrder::all();
-         $allPOItems  = PurchaseOrderItem::all();
+         $allPOs  = Order::all();
+         $allPOItems  = OrderItem::all();
         return view('invoices.create', compact( 'allCustomers','allPOItems','allCompanies','items','allProducts','allPOs'));
         
     }
@@ -45,10 +45,11 @@ class InvoiceController extends Controller
         // 1. Rigorous Data Validation
         $validated = $request->validate([
             'customer_id' => 'required|exists:customers,customer_id',
-            'order_id' => 'required|exists:purchase_orders,id',
+            'order_id' => 'required|exists:orders,id',
             'invoice_number' => 'required|string|max:25',
             'invoice_date' => 'required|date',
             'items' => 'required|array|min:1',
+            
             'items.*.part_number' => 'required|string',
             'items.*.inv_quantity' => 'required|integer|min:1',
             'items.*.unit_price' => 'required|numeric|min:0',
@@ -101,10 +102,10 @@ class InvoiceController extends Controller
                      
                 ]);
                  DB::table('invoice_items')
-                ->join('purchase_order_items', 'invoice_items.part_number', '=', 'purchase_order_items.part_number')
+                ->join('order_items', 'invoice_items.part_number', '=', 'order_items.part_number')
                 ->update([
-                'invoice_items.part_description' => DB::raw('purchase_order_items.part_description'),
-                'invoice_items.uom' => DB::raw('purchase_order_items.uom'),
+                'invoice_items.part_description' => DB::raw('order_items.part_description'),
+                'invoice_items.uom' => DB::raw('order_items.uom'),
                 'invoice_items.updated_at' => now(), // Manually update timestamps when using DB builder
                 ]);
                 DB::table('invoice_items')
@@ -140,7 +141,7 @@ class InvoiceController extends Controller
         $customers = Customer::all();
        $allCompanies = Company::all();
         $products = Product::all();
-        $order = PurchaseOrder::all();
+        $order = Order::all();
 
         $grandTotal = $invoice->invoice_amount; // Example amount
         
@@ -169,10 +170,10 @@ class InvoiceController extends Controller
          ->where('invoices.id', $id)
         ->select('customers.*', )
         ->get();
-        $poWithInvoice = DB::table('purchase_orders')
-        ->join('invoices', 'purchase_orders.id', '=', 'invoices.order_id')
+        $poWithInvoice = DB::table('orders')
+        ->join('invoices', 'orders.id', '=', 'invoices.order_id')
          ->where('invoices.id', $id)
-        ->select('purchase_orders.*', )
+        ->select('orders.*', )
         ->get();
         
         // 2. Pass the data to your dedicated Blade layout
@@ -222,6 +223,6 @@ class InvoiceController extends Controller
         $invoice->delete();
 
         return redirect()->route('invoices.index')
-                ->withSuccess('Invoice is cancelled successfully.');
+                ->withSuccess('Invoice is Deleted successfully.');
     }
 }

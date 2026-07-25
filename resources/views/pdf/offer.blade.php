@@ -50,14 +50,16 @@
                 <strong>Customer's Name & Address</strong> <br>
                  @foreach($customerWithOffers as $customer)
             <strong></strong> {{ $customer->customer_name }}<br>
-                 <p>{{ $customer->address_line1}}, {{ $customer->address_line2}}</p>
-                 <p>{{ $customer->city}}, {{ $customer->state}}-{{ $customer->pin_code}}</p>
+               <strong></strong>{{ $customer->address_line1}}, {{ $customer->address_line2}}<br>
+                <strong></strong>{{ $customer->city}}, {{ $customer->state}}-{{ $customer->pin_code}}<br>
                   @endforeach
              </td>
         
             <td style="text-align: right;">
                 <strong>Offer Number:</strong> {{ $offer->offer_number }}<br>
-                <p><strong>Date:</strong> {{ \Illuminate\Support\Carbon::parse($offer->offer_date)->format('d-m-Y') }}</p>
+                <strong>Date:</strong> {{ \Illuminate\Support\Carbon::parse($offer->offer_date)->format('d-m-Y') }}<br>
+                <strong>Reference Number:</strong> {{ $offer->ref_number }}<br>
+                <strong>Reference Date:</strong> {{ \Illuminate\Support\Carbon::parse($offer->ref_date)->format('d-m-Y') }}<br>
                 <strong>Valid Until:</strong> {{ \Illuminate\Support\Carbon::parse($offer->valid_until)->format('d-m-Y') }}
             </td>
         </tr>
@@ -71,7 +73,9 @@
             <tr>
                 <th>SL#</th>
                 <th>Part Number</th>
+                <th>Alt Part Number</th>
                 <th>Part Description</th>
+                <th>Quantity</th>
                 <th>Unit</th>
                 <th>Unit Price</th>
                  
@@ -83,7 +87,9 @@
                 
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->part_number }}</td>
+                  <td>{{ $item->alt_part_number }}</td>
                 <td>{{ $item->part_description }}</td>
+                <td>{{ $item->quantity }}</td>
                  <td>{{ $item->uom }}</td>
                 <td>{{ number_format($item->price, 2) }}</td>
              </tr>

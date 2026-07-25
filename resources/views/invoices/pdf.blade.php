@@ -25,7 +25,13 @@
     </style>
 </head>
 <body>
-    
+    <table class="info-table">
+                 <tr>
+            <td style="text-align: right;">
+                        <strong>TAX INVOICE</strong>
+                        </td>
+            </tr>
+             </table>
     <div class="header"> 
             <img src="{{ public_path('images/sat-logo.png') }}" width="100" height="auto" alt="Logo">
             </div>
@@ -39,16 +45,10 @@
             <strong>{{ $company->city}}, {{ $company->state}}-{{ $company->pin_code}}</strong><br>
             <strong>Mobile No. </strong> {{ $company ->contact_number }}, 
             <strong>Email ID : </strong> {{ $company ->email }} ,
-            <strong>Website : </strong> {{ $company ->website }} 
+            <strong>Website : </strong> {{ $company ->website }}, <strong>GST Number:</strong> {{ $company->gst_number }} 
             @endforeach
             </div>   
-            <table class="info-table">
-                 <tr>
-            <td style="text-align: right;">
-                        <strong>TAX INVOICE</strong>
-                        </td>
-            </tr>
-             </table>
+            
     <table class="info-table">
              <tr>
             <td style="text-align: left;">
@@ -59,19 +59,18 @@
                  <strong></strong>{{ $customer->city}}, {{ $customer->state}}-{{ $customer->pin_code}}<br>
                  <strong>Contact Number:</strong> {{ $customer->contact_number }}<br>
                  <strong>Email:</strong> {{ $customer->email }}<br>
-                 <strong>Website:</strong> {{ $customer->website }}<br>
-                 <strong>GST Number:</strong> {{ $customer->gst_number }}<br>
+                <strong>GST Number:</strong> {{ $customer->gst_number }}<br>
                  @endforeach
              </td>
                 
             <td style="text-align: right;">
                 <strong>Invoice Number:</strong> {{ $invoice->invoice_number }}<br>
-                <p><strong>Invoice Date:</strong> {{ \Illuminate\Support\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}</p>
+                <strong>Invoice Date:</strong> {{ \Illuminate\Support\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}<br>
                  
                  @foreach($poWithInvoice as $po)
-                 <strong>PO Number:</strong> {{  $po->po_number }}<br>
-                 <p><strong>PO Date:</strong> {{ \Illuminate\Support\Carbon::parse($po->po_date)->format('d-m-Y') }}</p>
-                 <p><strong>Delivery End Date:</strong> {{ \Illuminate\Support\Carbon::parse($po->del_end_date)->format('d-m-Y') }}</p>
+                 <strong>PO Number:</strong> {{  $po->order_number }}<br>
+                 <strong>PO Date:</strong> {{ \Illuminate\Support\Carbon::parse($po->order_date)->format('d-m-Y') }}<br>
+                 <strong>Delivery End Date:</strong> {{ \Illuminate\Support\Carbon::parse($po->valid_until)->format('d-m-Y') }}<br>
                   @endforeach
                  </td>
             </tr>

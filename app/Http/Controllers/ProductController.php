@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductController extends Controller
 {
@@ -80,5 +82,32 @@ class ProductController extends Controller
 
         return redirect()->back()
                 ->withSuccess('Product is deleted successfully.');
+    }
+    public function downloadPdf()
+    {
+        // 1. Fetch stock data from database
+        $products = Product::all();
+        $allCompanies = Company::all();
+        
+       // Calculate total valuation of entire inventory
+        $totalValuation = $products->sum(function ($product) {
+            return $product->current_stock * $product->price;
+        });
+        // 2. Map metadata
+        $data = [
+            'title' => 'Current Stock Inventory Report',
+            'date' => now()->format('Y-m-d H:i:s'),
+            'products' => $products
+        ];
+        
+        // 3. Load the blade view and share data
+        // 3. Bind variables to your blade template view
+        $pdf = Pdf::loadView('reports.stock_list', compact('products', 'allCompanies','totalValuation'))
+        
+                  ->setPaper('a4', 'portrait'); // Set page layout
+        
+        // 4. Return pdf stream (view in browser) or download()
+       // Stream the file directly to browser for download
+        return $pdf->download('stock_report_' . now()->format('Y-m-d') . '.pdf');
     }
 }

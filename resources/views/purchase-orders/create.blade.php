@@ -20,12 +20,12 @@
                     
                     <!-- Vendor Selection -->
                      <div class="form-group">
-                    <label for="customer_id"> Customer ID</label>
-                    <select name="customer_id" id="customer_id" class="form-control">
-                      <option value="">Select Customer</option>
-                     @foreach ($allCustomers as $customer)
-                        <option value="{{ $customer->customer_id }}">
-                         {{ $customer->customer_name }}
+                    <label for="vendor_id"> Vendor ID</label>
+                    <select name="vendor_id" id="vendor_id" class="form-control">
+                      <option value="">Select Vendor</option>
+                     @foreach ($allVendors as $vendor)
+                        <option value="{{ $vendor->vendor_id }}">
+                         {{ $vendor->vendor_name }}
                         </option>
                         @endforeach
                     </select>
@@ -51,16 +51,47 @@
                             @enderror
                         </div>
                     </div>
+                    
                     <div class="mb-3 row">
-                        <label for="del_end_date" class="col-md-4 col-form-label text-md-end text-start">Delivery End Date</label>
+                        <label for="gst_terms" class="col-md-4 col-form-label text-md-end text-start">GST :</label>
                         <div class="col-md-6">
-                          <input type="date" class="form-control @error('del_end_date') is-invalid @enderror" id="del_end_date" name="del_end_date" value="{{ old('del_end_date') }}">
-                            @error('del_end_date')
+                          <select class="form-control @error('gst_terms') is-invalid @enderror" id="gst_terms" name="gst_terms">
+                                <option value="">Select GST Terms</option>
+                                <option value="Extra GST @18%" {{ old('gst_terms') == '1' ? 'selected' : '' }}>Extra GST @18%</option>
+                                <option value="Extra as per applicable" {{ old('gst_terms') == '2' ? 'selected' : '' }}>Extra as per applicable</option>
+                            </select>
+                            @error('gst_terms')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-                
+                    <div class="mb-3 row">
+                        <label for="delivery_terms" class="col-md-4 col-form-label text-md-end text-start">Delivery : </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('delivery_terms') is-invalid @enderror" id="delivery_terms" name="delivery_terms" value="{{ old('delivery_terms') }}">
+                            @error('delivery_terms')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="pf_terms" class="col-md-4 col-form-label text-md-end text-start">Packing & Forwarding (%) : </label>
+                        <div class="col-md-6">
+                          <input type="number" step="0.01" class="form-control @error('pf_terms') is-invalid @enderror" id="pf_terms" name="pf_terms" value="{{ old('pf_terms') }}">
+                            @error('pf_terms')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="transport" class="col-md-4 col-form-label text-md-end text-start">Transport : </label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('transport') is-invalid @enderror" id="transport" name="transport" value="{{ old('transport') }}">
+                            @error('transport')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
             <!-- Initial Item Row -->
          <div id="items-container">

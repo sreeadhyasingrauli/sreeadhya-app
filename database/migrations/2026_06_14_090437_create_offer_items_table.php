@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('offer_id');
             $table->string('part_number');
+            $table->string('alt_part_number')->nullable();
             $table->string('part_description');
             $table->integer('quantity');
             $table->string('uom');

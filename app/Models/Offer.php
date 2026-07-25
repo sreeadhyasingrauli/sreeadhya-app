@@ -11,7 +11,7 @@ class Offer extends Model
     //
     protected $primaryKey = 'offer_id';
     protected $fillable = [ 'customer_id',
-        'offer_number','offer_date',
+        'offer_number','offer_date','ref_number','ref_date',
         'valid_until', 'payment_terms','gst_terms','delivery_terms','pf_terms',
         'pricebasis_terms','guarantee_terms','ld_terms','other_terms',
         'subtotal',

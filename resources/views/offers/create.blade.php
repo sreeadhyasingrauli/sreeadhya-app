@@ -49,6 +49,24 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
+                        <label for="ref_number" class="col-md-4 col-form-label text-md-end text-start">Reference Number</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('ref_number') is-invalid @enderror" id="ref_number" name="ref_number" value="{{ old('ref_number') }}">
+                            @error('ref_number')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="ref_date" class="col-md-4 col-form-label text-md-end text-start">Reference Date</label>
+                        <div class="col-md-6">
+                          <input type="date" class="form-control @error('ref_date') is-invalid @enderror" id="ref_date" name="ref_date" value="{{ old('ref_date') }}">
+                            @error('ref_date')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
                         <label for="valid_until" class="col-md-4 col-form-label text-md-end text-start">Valid Until (Date)</label>
                         <div class="col-md-6">
                           <input type="date" class="form-control @error('valid_until') is-invalid @enderror" id="valid_until" name="valid_until" value="{{ old('valid_until') }}">
@@ -149,8 +167,8 @@
                 <option value="{{ $product->part_number }}">{{ $product->part_number }}</option>
             @endforeach
         </select>
-
         
+              
 
         <!-- Quantity -->
         <div class="mb-0">

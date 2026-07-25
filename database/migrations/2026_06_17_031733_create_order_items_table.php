@@ -14,13 +14,19 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
             // Foreign keys referencing parent entities
-            $table->foreignId('order_id');
+             $table->foreignId('order_id');
+            $table->foreignId('product_id');
             $table->string('part_number');
             $table->string('part_description');
-            // Snapshot of data at the time of purchase
-            $table->integer('quantity')->default(1);
-            $table->decimal('price', 10, 2); // Single item price
-            $table->decimal('total', 10, 2); // quantity * price
+            $table->unsignedInteger('hsn_code') ->nullable(); // HSN code can be null if not applicable
+            $table->string('uom')->nullable(); // e.g., pcs, kg, etc.
+        
+            $table->integer('order_quantity')->default(1);
+            $table->decimal('unit_price', 15, 2); // Single item price
+            $table->decimal('gst_rate', 5, 2)->default(0.00); // GST rate in percentage
+            $table->decimal('gst_amount', 15, 2)->default(0.00); // GST amount
+            $table->decimal('sub_total', 15, 2); // quantity * price
+             $table->decimal('parts_total', 15, 2)->default(0.00); // quantity * price
             $table->timestamps();
         });
     }

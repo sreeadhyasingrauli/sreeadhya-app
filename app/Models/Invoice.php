@@ -25,9 +25,9 @@ class Invoice extends Model
     }
     //  CORRECT
     
-    public function purchaseOrder(): BelongsTo
+    public function Order(): BelongsTo
     {
-        return $this->belongsTo(PurchaseOrder::class, 'purchase_order_id', 'id');
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
     public function user(): BelongsTo
     {

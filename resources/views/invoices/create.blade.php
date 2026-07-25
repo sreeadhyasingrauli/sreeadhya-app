@@ -57,7 +57,7 @@
                     <select name="order_id" id="order_id" class="form-control">
                       <option value="">Select PO ID</option>
                      @foreach($allPOs as $po)
-                       <option value="{{ $po->id }}">{{ $po->id }}-{{ $po->po_number }}</option>
+                       <option value="{{ $po->id }}">{{ $po->id }}-{{ $po->order_number }}</option>
                          {{ $po->id }}
                         </option>
                         @endforeach
@@ -77,7 +77,7 @@
         <select name="items[0][part_number]" class="form-control" required>
             <option value="">Select Part Number</option>
             @foreach ($allPOItems as $product)
-                <option value="{{ $product->part_number }}">{{ $product->purchase_order_id }}-{{ $product->part_number }}</option>
+                <option value="{{ $product->part_number }}">{{ $product->order_id }}-{{ $product->part_number }}</option>
             @endforeach
         </select>
 

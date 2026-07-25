@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Order Acceptance</title>
+    <title>Purchase Order</title>
     <style>
          body { font-family: sans-serif; color: #333; font-size: 12px; line-height: 1.5; }
         .header { margin-bottom: 5px; border-bottom: 2px solid #334155; padding-bottom: 5px; }
@@ -19,35 +19,46 @@
     </style>
 </head>
 <body>
-     <div class="header">
-        <div>
-            <div class="offer-title">ORDER ACCEPTANCE</div>
-           
-        </div>
-</div>
-    <div class="header">
-        <div>
+     
+    <div class="header"> 
             <img src="{{ public_path('images/sat-logo.png') }}" width="100" height="auto" alt="Logo">
-            <h2>Sree Adhya Traders</h2>
-            <p>New Market, Near Gayatri Mandir, Singrauli, Dist. Singrauli, MP-486889</p>
-            <p>Mobile No. 9425176589, 8319738607,Email : adhya2003@yahoo.com,website : sreeadhya.com  </p>
             </div>
+            <strong></strong> <br>
+            <div class="company-name"> 
+            @foreach($allCompanies as $company)
+            <strong></strong> {{ $company ->company_name }}<br>
             </div>
+            <div class="header">
+            <strong>{{ $company->address_line1}}, {{ $company->address_line2}}</strong><br>
+            <strong>{{ $company->city}}, {{ $company->state}}-{{ $company->pin_code}}</strong><br>
+            <strong>Mobile No. </strong> {{ $company ->contact_number }}, 
+            <strong>Email ID : </strong> {{ $company ->email }},
+            <strong>GST No. : </strong> {{ $company ->gst_number }}
+              
+            @endforeach
+            </div>     
+            <table class="info-table">
+                 <tr>
+            <td style="text-align: right;">
+                        <strong>PURCHASE ORDER</strong>
+                        </td>
+            </tr>
+             </table>
     <table class="info-table">
              <tr>
             <td style="text-align: left;">
-                @foreach($customers as $customer)
-                <strong></strong> {{ $customer->customer_name }}<br>
-                 <p>{{ $customer->address_line1}}, {{ $customer->address_line2}}</p>
-                 <p>{{ $customer->city}}, {{ $customer->state}}-{{ $customer->pin_code}}</p>
+                <strong>Vendor's Name & Address</strong> <br>
+                @foreach($vendorWithPO as $vendor)
+                <strong></strong> {{ $vendor->vendor_name }}<br>
+                 <strong></strong>{{ $vendor->address_line1}}, {{ $vendor->address_line2}}<br>
+                 <strong></strong>{{ $vendor->city}}, {{ $vendor->state}}-{{ $vendor->pin_code}}<br>
              @endforeach
                 </td>
                 
             <td style="text-align: right;">
-                <strong>PO Number:</strong> {{ $order->po_number }}<br>
+                <strong>PO Number:</strong> {{ $purchaseorder->po_number }}<br>
+                 <strong>PO Date:</strong> {{ \Illuminate\Support\Carbon::parse($purchaseorder->po_date)->format('d-m-Y') }}<br>
                 
-                <p><strong>PO Date:</strong> {{ \Illuminate\Support\Carbon::parse($order->po_date)->format('d-m-Y') }}</p>
-                <strong>Delivery End Date :</strong> {{ \Illuminate\Support\Carbon::parse($order->del_end_date)->format('d-m-Y') }} 
             </td>
         </tr>
         
@@ -64,17 +75,19 @@
                 <th>Part Number</th>
                 <th>Part Description</th>
                 <th>Qty</th>
+                <th>Unit</th>
                 <th>Unit Price</th>
                 <th>Total</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($order->items as $item)
+            @foreach($purchaseorder->items as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->part_number }}</td>
                 <td>{{ $item->part_description }}</td>
                 <td>{{ $item->quantity }}</td>
+                <td>{{ $item->uom }}</td>
                 <td>{{ $item->unit_price }}</td>
                 <td>{{ $item->subtotal }}</td>
             </tr>
@@ -82,6 +95,7 @@
         </tbody>
         
     </table>
+    <div class="header"> </div>
     <table class="info-table">
              <tr>
             <td style="text-align: left;">
@@ -90,16 +104,27 @@
              </td>
         
             <td style="text-align: right;">
-                <strong>Basic Value :</strong> {{ $order->basic_value }}<br>
-                <p><strong>GST Value:</strong> {{ $order->gst_value }}</p>
-                <strong>Total Value :</strong> {{ $order->total_value }}
+                <strong>Basic Value :</strong> {{ $purchaseorder->basic_value }}<br>
+               <strong>GST Value @18%:</strong> {{ $purchaseorder->gst_value }}<br>
+               <strong>P&F Value </strong> @{{ $purchaseorder->pf_terms }} %: {{ $purchaseorder->pf_value }}<br>
+                <strong>Total Value :</strong> {{ $purchaseorder->total_value }} <br>
+
             </td>
         </tr>
         
     </table>
-
+                 <div class="header"> </div>
     <div class="clear"></div>
-    <p style="margin-top: 50px;">Thank you for your Purchase Order placed on us, this is our official order acceptance.</p>
+    <strong>Terms and Conditions :</strong>  <br>
+    <strong>1. GST Terms: </strong>  {{ $purchaseorder->gst_terms }}<br>
+    <strong>2. Delivery Schedule: </strong>  {{ $purchaseorder->delivery_terms }}<br>
+    <strong>3. P&F (Packing & Forwarding): </strong>  {{ $purchaseorder->pf_terms }}<br>
+    <strong>4. Transport: </strong>  {{ $purchaseorder->transport }}<br>
+
+
+    <p style="margin-top: 50px;">You are requested to please supply the above goods as per the terms and conditions of the Purchase Order.</p>
+
+    
 
     <table class="content">
                <tr>
@@ -109,10 +134,11 @@
                 <tr> </tr>
                 
                  <tr> </tr>
-                 <p>For Sree Adhya Traders</p>
+                 <p><strong>for Sree Adhya Traders</strong></p> 
                  <tr> </tr>
                  <tr> </tr>
                  <p><strong>(J D CHATTERJEE)</strong></p> 
+                 <p><strong>Proprietor</strong></p>
                 </td>
              </tr>
             </table>

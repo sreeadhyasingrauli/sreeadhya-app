@@ -8,6 +8,8 @@
     <link href="https://jsdelivr.net" rel="stylesheet">
     <!-- FontAwesome for billing icons -->
     <link href="https://cloudflare.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" crossorigin="anonymous">
     <style>
         body { overflow-x: hidden; background-color: #f8f9fa; }
         .wrapper { display: flex; width: 100%; align-items: stretch; }
@@ -17,6 +19,9 @@
         #sidebar ul li a { padding: 12px 20px; font-size: 1rem; display: block; color: #cbd5e1; text-decoration: none; display: flex; align-items: center; gap: 12px; }
         #sidebar ul li a:hover, #sidebar ul li.active > a { color: #fff; background: #334155; }
         #content { width: 100%; }
+        html {
+        font-size: 12px; /* Adjust as needed (e.g., 0.85rem, 85%) */
+        }
     </style>
 </head>
 <body>

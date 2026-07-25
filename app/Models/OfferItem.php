@@ -9,7 +9,7 @@ class OfferItem extends Model
 {
     //
      
-    protected $fillable = [ 'offer_id','part_number','part_description',
+    protected $fillable = [ 'offer_id','part_number','alt_part_number','part_description',
                'quantity','uom',
         'price',
         'total',

@@ -15,8 +15,8 @@ class InvoiceItem extends Model
     {
          return $this->belongsTo(Invoice::class);
     }
-    public function purchase_order_items() 
+    public function order_items() 
     {
-        return $this->belongsTo(PurchaseOrderItem::class);
+        return $this->belongsTo(OrderItem::class);
     }
 }

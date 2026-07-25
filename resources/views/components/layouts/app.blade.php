@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Billing App</title>
-
-    <!-- Vite Blade Directive -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sree Adhya Traders</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" crossorigin="anonymous">
+    <style>
+    html {
+        font-size: 14px; /* Adjust as needed (e.g., 0.85rem, 85%) */
+    }
+</style>
 </head>
 <body class="bg-blue-100 font-sans antialiased">
     

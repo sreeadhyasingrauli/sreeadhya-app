@@ -22,6 +22,12 @@
                             {{ $product->part_number }}
                         </div>
                     </div>
+                     <div class="row">
+                        <label for="alt_part_number" class="col-md-4 col-form-label text-md-end text-start"><strong>Alternate Part Number:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $product->alt_part_number }}
+                        </div>
+                    </div>
 
                     <div class="row">
                         <label for="part_description" class="col-md-4 col-form-label text-md-end text-start"><strong>Part Description:</strong></label>
@@ -61,7 +67,19 @@
                         </div>
                     </div>
 
-                    
+                    <div class="row">
+                        <label for="current_stock" class="col-md-4 col-form-label text-md-end text-start"><strong>Current Stock:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $product->current_stock }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="alert_level" class="col-md-4 col-form-label text-md-end text-start"><strong>Alert Level:</strong></label>
+                        <div class="col-md-6" style="line-height: 35px;">
+                            {{ $product->alert_level }}
+                        </div>
+                    </div>
+
         
             </div>
         </div>

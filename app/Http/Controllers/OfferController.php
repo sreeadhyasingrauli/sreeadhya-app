@@ -46,6 +46,8 @@ class OfferController extends Controller
             'customer_id' => 'required|exists:customers,customer_id',
             'offer_number' => 'required|string',
             'offer_date' => 'required|date',
+            'ref_number' => 'required|string',
+            'ref_date' => 'required|date',
             'valid_until' => 'required|date',
             'payment_terms' => 'required|string',
             'gst_terms' => 'required|string',
@@ -74,6 +76,8 @@ class OfferController extends Controller
             'customer_id' => $validated['customer_id'],
             'offer_number' => $validated['offer_number'],
             'offer_date' => $validated['offer_date'],
+            'ref_number' => $validated['ref_number'],
+            'ref_date' => $validated['ref_date'],
             'valid_until' => $validated['valid_until'],
             'payment_terms' => $validated['payment_terms'],
             'gst_terms' => $validated['gst_terms'],
@@ -92,6 +96,7 @@ class OfferController extends Controller
         foreach ($validated['items'] as $item) {
             $offer->items()->create([
                 'part_number' => $item['part_number'],
+                'alt_part_number' => '  ',
                 'part_description' => '   ',
                 'quantity' => $item['quantity'],
                 'uom' =>'  ',
@@ -101,19 +106,12 @@ class OfferController extends Controller
             DB::table('offer_items')
             ->join('products', 'offer_items.part_number', '=', 'products.part_number')
             ->update([
-                'offer_items.part_description' => DB::raw('products.part_description'),
+               'offer_items.alt_part_number' => DB::raw('products.alt_part_number'),
+               'offer_items.part_description' => DB::raw('products.part_description'),
                 'offer_items.uom' => DB::raw('products.uom'),
                 'offer_items.updated_at' => now(), // Manually update timestamps when using DB builder
             ]);
-
-        
-
-        
-   
-
        
-
-        
         }
 
        // return response()->json(['message' => 'Offer created successfully']);

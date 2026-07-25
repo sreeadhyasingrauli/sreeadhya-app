@@ -22,8 +22,9 @@
                         <th scope="col">Customer ID</th>
                         <th scope="col">Offer Number</th>
                         <th scope="col">Offer Date</th>
+                        <th scope="col">Reference Number</th>
+                        <th scope="col">Reference Date</th>
                         <th scope="col">Valid Until</th>
-                        
                         <th scope="col">Sub Total</th>
                         <th scope="col">GST Amount</th>
                         <th scope="col">Total Amount</th>
@@ -39,6 +40,8 @@
                              <td>{{ $offern->customer_id }}</td>
                             <td>{{ $offern->offer_number }}</td>
                             <td>{{ $offern->offer_date }}</td>
+                            <td>{{ $offern->ref_number }}</td>
+                            <td>{{ $offern->ref_date }}</td>
                             <td>{{ $offern->valid_until }}</td>
                             <td>{{ $offern->subtotal }}</td>
                             <td>{{ $offern->gst_amount }}</td>

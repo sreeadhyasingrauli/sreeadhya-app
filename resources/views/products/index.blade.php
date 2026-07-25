@@ -20,13 +20,15 @@
                       <tr>
                         <th scope="col">S#</th>
                         <th scope="col">Part Number</th>
+                        <th scope="col">Alternate Part Number</th>
                         <th scope="col">Part Description</th>
                         <th scope="col">Make</th>
                         <th scope="col">Unit Of Measurement</th>
                         <th scope="col">Price</th>
                         <th scope="col">HSN Code</th>
                         <th scope="col">GST Rate</th>
-                        
+                        <th scope="col">Current Stock</th>
+                        <th scope="col">Alert Level</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -35,13 +37,15 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $product->part_number }}</td>
+                            <td>{{ $product->alt_part_number }}</td>
                             <td>{{ $product->part_description }}</td>
                             <td>{{ $product->make }}</td>
                             <td>{{ $product->uom}}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->hsn_code }}</td>
                             <td>{{ $product->gst_rate}}</td>
-                            
+                            <td>{{ $product->current_stock}}</td>
+                            <td>{{ $product->alert_level}}</td>
 
                             <td>
                                 <form action="{{ route('products.destroy', $product->product_id) }}" method="post">
@@ -49,8 +53,8 @@
                                     @method('DELETE')
 
                                     <a href="{{ route('products.show', $product->product_id) }}" class="btn btn-warning btn-sm"><i class="bi bi-eye"></i> Show</a>
-
                                     <a href="{{ route('products.edit', $product->product_id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                                    
 
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this Product?');"><i class="bi bi-trash"></i> Delete</button>
                                 </form>
@@ -59,7 +63,7 @@
                         @empty
                             <td colspan="6">
                                 <span class="text-danger">
-                                    <strong>No Customer Found!</strong>
+                                    <strong>No Product Found!</strong>
                                 </span>
                             </td>
                         @endforelse

@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class PurchaseOrderItem extends Model
 {
     //
-    protected $fillable = ['purchase_order_id', 'part_number','part_description', 'quantity', 'uom','unit_price', 'subtotal','gst_amount','total_amount'];
+    protected $fillable = ['purchase_order_id', 'part_number','part_description', 'quantity', 'uom','unit_price', 
+    'subtotal','gst_amount','pf_amount','total_amount'];
 
     public function purchaseOrder(): BelongsTo 
     {

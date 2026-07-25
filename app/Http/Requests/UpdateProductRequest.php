@@ -22,13 +22,16 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'part_number' => 'required|string|max:250|unique:products,part_number,' . $this->route('product')->product_id,
+            'part_number' => 'required|string|max:250|unique:products,product_id' ,
+            'alt_part_number' => 'nullable|string|max:250',
             'part_description' => 'required|string|max:250',
             'make' => 'required|string|max:250',
             'price' => 'required',
             'uom' => 'required|string|max:250',
             'hsn_code' => 'required',
             'gst_rate' => 'required',
+            'current_stock' => 'required',
+            'alert_level' => 'required',
             
         ];
     }

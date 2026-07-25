@@ -14,12 +14,16 @@ return new class extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             
             $table->id();
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('vendor_id');
             $table->string('po_number')->unique();
             $table->date('po_date');
-             $table->date('del_end_date');
-            $table->decimal('basic_value', 15, 2)->default(0.00);
+            $table->string('gst_terms');
+            $table->string('delivery_terms');
+             $table->decimal('pf_terms', 5, 2)->default(0.00);
+              $table->string('transport');
+             $table->decimal('basic_value', 15, 2)->default(0.00);
              $table->decimal('gst_value', 15, 2)->default(0.00);
+              $table->decimal('pf_value', 15, 2)->default(0.00);
               $table->decimal('total_value', 15, 2)->default(0.00);
             $table->string('status')->default('draft'); // draft, sent, approved, completed
             $table->timestamps();

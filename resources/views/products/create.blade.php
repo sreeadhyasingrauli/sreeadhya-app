@@ -27,6 +27,15 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="alt_part_number" class="col-md-4 col-form-label text-md-end text-start">Alternate Part Number</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('alt_part_number') is-invalid @enderror" id="alt_part_number" name="alt_part_number" value="{{ old('alt_part_number') }}">
+                            @error('alt_part_number')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="mb-3 row">
                         <label for="part_description" class="col-md-4 col-form-label text-md-end text-start">Part Description</label>

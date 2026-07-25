@@ -23,6 +23,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'part_number' => 'required|string|max:250|unique:products,part_number',
+            'alt_part_number' => 'nullable|string|max:250',
             'part_description' => 'required|string|max:250',
             'make' => 'required|string|max:250',
             'price' => 'required',
