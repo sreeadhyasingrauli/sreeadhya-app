@@ -26,6 +26,9 @@ use App\Http\Controllers\VendorController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ChallanController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\CommercialOfferController;
+use App\Http\Controllers\ProformaInvoiceController;
+
 
 
 
@@ -44,9 +47,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/vendors', [VendorController::class, 'index'])->name('dashboard.vendors');
     Route::get('/dashboard/products', [ProductController::class, 'index'])->name('dashboard.products');
     Route::get('/dashboard/offers', [OfferController::class, 'index'])->name('dashboard.offers');
+     Route::get('/dashboard/commercial-offers', [CommercialOfferController::class, 'index'])->name('dashboard.commercial-offers');
     Route::get('/dashboard/orders', [OrderController::class, 'index'])->name('dashboard.orders');
      Route::get('/dashboard/purchase-orders', [PurchaseOrderController::class, 'index'])->name('dashboard.purchase-orders');
     Route::get('/dashboard/invoices', [InvoiceController::class, 'index'])->name('dashboard.invoices');
+    Route::get('/dashboard/proforma-invoices', [ProformaInvoiceController::class, 'index'])->name('dashboard.proforma-invoices');
       Route::get('/dashboard/challans', [ChallanController::class, 'index'])->name('dashboard.challans');
        Route::get('/dashboard/inventory', [InventoryController::class, 'index'])->name('dashboard.inventory');
     //Route::get('/dashboard/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
@@ -54,17 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/change-password', [PasswordController::class, 'edit'])->name('password.edit');
     Route::post('/change-password', [PasswordController::class, 'update'])->name('password.update');
     
-});
-
-
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/settings', [SettingsController::class, 'edit'])
-        ->name('profile.settings.edit');
-    Route::patch('/settings', [SettingsController::class, 'update'])
-        ->name('profile.settings.update');
-    
-});
+    });
 
 //Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
@@ -97,6 +92,8 @@ Route::resource('orders', OrderController::class);
 Route::resource('quotes', QuoteController::class);
 Route::resource('challans', ChallanController::class);
 Route::resource('stock', StockController::class);
+
+
 Route::resource('/purchase-orders', PurchaseOrderController::class);
 Route::get('/purchase-orders/accept/{id}', [PurchaseOrderController::class, 'generateOrderAcceptance']) ->name('purchase-orders.purchase-order');
 Route::get('/offer/{id}', [OfferController::class, 'generatePdf']) ->name('offer');
@@ -131,3 +128,7 @@ Route::post('/inventory/product/{id}/adjust', [InventoryController::class, 'adju
 Route::get('/stock/report/pdf', [ProductController::class, 'downloadPdf'])->name('stock.pdf');
 Route::post('/stock/{product}/stock-in', [StockController::class, 'stockIn'])->name('stock.stockIn');
 Route::post('/stock/{product}/stock-out', [StockController::class, 'stockOut'])->name('stock.stockOut');
+Route::resource('commercial-offers', CommercialOfferController::class);
+Route::get('/commercial-offers/download/{id}', [CommercialOfferController::class, 'download']) ->name('commercial-offers.download');
+Route::resource('proforma-invoices', ProformaInvoiceController::class);
+Route::get('/proforma-invoices/{id}/download', [ProformaInvoiceController::class, 'download'])->name('proforma-invoices.pdf');
