@@ -29,6 +29,9 @@
          <a href="{{ route('dashboard.offers') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-black-300 transition-colors">
             <span>📄</span> Budgetary Offers
         </a>
+        <a href="{{ route('dashboard.commercial-offers') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-black-300 transition-colors">
+            <span>📄</span> Commercial Offers
+        </a>
          <a href="{{ route('dashboard.orders') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-black-300 transition-colors">
             <span>📄</span> Customer Orders
         </a>
@@ -38,7 +41,9 @@
         <a href="{{ route('dashboard.challans') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-black-300 transition-colors">
             <span>📄</span> Delivery Challan
         </a>
-        
+        <a href="{{ route('dashboard.proforma-invoices') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-black-300 transition-colors">
+            <span>📄</span> Proforma Invoices
+        </a>
         <a href="{{ route('dashboard.invoices') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-800 text-black-300 transition-colors">
             <span>📄</span> Invoices
         </a>

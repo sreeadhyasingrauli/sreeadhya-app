@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
-use App\Models\Offer;
-use App\Models\OfferItem;
+use App\Models\CommercialOffer;
+
 use App\Models\Customer;
 use App\Models\Company;
-use App\Models\Product;
+
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -19,24 +19,24 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
-class OfferController extends Controller
+class CommercialController extends Controller
 {
     //
     public function index() : View
     {
         //
-        $offer = Offer::latest()->paginate(5);
-        return view('offers.index', compact('offer'));
+        $offer = CommercialOffer::latest()->paginate(5);
+        return view('commercialoffer.index', compact('offer'));
         
     }
     public function create() : View
     {
         //
-        $items = OfferItem::all();
+        
         $allCompanies = Company::all();
         $allCustomers = Customer::all();
-         $allProducts = Product::all();
-        return view('offers.create', compact( 'allCustomers','allCompanies','items','allProducts'));
+        
+        return view('commercialoffer.create', compact( 'allCustomers','allCompanies'));
         
     }
     public function store(Request $request) :  RedirectResponse
@@ -46,77 +46,47 @@ class OfferController extends Controller
             'customer_id' => 'required|exists:customers,customer_id',
             'offer_number' => 'required|string',
             'offer_date' => 'required|date',
-            'ref_number' => 'required|string',
-            'ref_date' => 'required|date',
-            'valid_until' => 'required|date',
+            'enquiry_number' => 'required|string',
+            'enquiry_date' => 'required|date',
+            'validity' => 'required|string',
             'payment_terms' => 'required|string',
             'gst_terms' => 'required|string',
             'delivery_terms' => 'required|string',
-            'pf_terms' => 'required|string',
+            'discount' => 'required|string',
             'pricebasis_terms' => 'required|string',
             'guarantee_terms' => 'required|string',
-            'ld_terms' => 'required|string',
             'other_terms' => 'required|string',
-            'items' => 'required|array',
-            'items.*.part_number' => 'required|string',
-            'items.*.quantity' => 'required|integer|min:1',
-            'items.*.price' => 'required|numeric|min:0',
-
+            
             
         ]);
-        // 2. Calculate Totals
-        $subtotal = collect($validated['items'])->sum(function ($item) {
-            return $item['quantity'] * $item['price'];
-        });
-        $gst_amount = $subtotal * 0.18; // Example 18% tax
-        $total = $subtotal + $gst_amount;
         
         // 3. Save Offer to Database
-        $offer = Offer::create([
+        $offer = CommercialOffer::create([
             'customer_id' => $validated['customer_id'],
             'offer_number' => $validated['offer_number'],
             'offer_date' => $validated['offer_date'],
-            'ref_number' => $validated['ref_number'],
-            'ref_date' => $validated['ref_date'],
-            'valid_until' => $validated['valid_until'],
+            'enquiry_number' => $validated['ref_number'],
+            'enquiry_date' => $validated['ref_date'],
+            'validity' => $validated['validity'],
             'payment_terms' => $validated['payment_terms'],
             'gst_terms' => $validated['gst_terms'],
             'delivery_terms' => $validated['delivery_terms'],
-            'pf_terms' => $validated['pf_terms'],
+            'discount' => $validated['pf_terms'],
             'pricebasis_terms' => $validated['pricebasis_terms'],
             'guarantee_terms' => $validated['guarantee_terms'],
-            'ld_terms' => $validated['ld_terms'],
+            
             'other_terms' => $validated['other_terms'],
-            'subtotal' => $subtotal,
-            'gst_amount' => $gst_amount,
-            'total_amount' => $total,
+            
         ]);
         
        
-        foreach ($validated['items'] as $item) {
-            $offer->items()->create([
-                'part_number' => $item['part_number'],
-                'alt_part_number' => '  ',
-                'part_description' => '   ',
-                'quantity' => $item['quantity'],
-                'uom' =>'  ',
-                'price' => $item['price'],
-                'total' => $item['quantity'] * $item['price'],
-            ]);
-            DB::table('offer_items')
-            ->join('products', 'offer_items.part_number', '=', 'products.part_number')
-            ->update([
-               'offer_items.alt_part_number' => DB::raw('products.alt_part_number'),
-               'offer_items.part_description' => DB::raw('products.part_description'),
-                'offer_items.uom' => DB::raw('products.uom'),
-                'offer_items.updated_at' => now(), // Manually update timestamps when using DB builder
-            ]);
+        
        
-        }
+        
 
        // return response()->json(['message' => 'Offer created successfully']);
-       return redirect()->route('offers.index')
-                ->withSuccess('Offer is created successfully.');
+       return redirect()->route('commercialoffer.index')
+                ->withSuccess('Commercial Offer is created successfully.');
     }
     public function show(Request $request) : View
     {
@@ -136,7 +106,7 @@ class OfferController extends Controller
     public function destroy(Offer $offer) : RedirectResponse
     {
         //
-         $offer->delete();
+         $commercialoffer->delete();
 
         return redirect()->back()
                 ->withSuccess('Offer is deleted successfully.');
@@ -162,7 +132,22 @@ class OfferController extends Controller
         // Return the PDF to the browser (stream) or download it
         return $pdf->download('customer_offer_'.$id.'.pdf');
 
-               
+        // Optional: Check if the user is authorized to download this offer
+        // Gate::authorize('view', $offer);
+
+        // Define the file path (e.g., assuming it is stored in storage/app/offers)
+        //$filePath = 'offers/' . $offer->file_name;
+
+        // Verify the file actually exists on the disk
+        //if (!Storage::exists($filePath)) {
+      //      abort(404, 'File not found.');
+       // }
+
+        // Return the download stream, renaming the downloaded file on the fly
+       // return Storage::download($filePath, 'special-offer-' . $offer->id . '.pdf', [
+        //    'Content-Type' => 'application/pdf',
+        //]);
+         
          
     }
     public function generateOfferPdf($id)

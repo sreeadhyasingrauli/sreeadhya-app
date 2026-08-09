@@ -22,7 +22,6 @@
                         <th scope="col">Customer ID</th>
                         <th scope="col">Challan Number</th>
                         <th scope="col">Challan Date</th>
-                        
                         <th scope="col">Order Number</th>
                         <th scope="col">Order Date</th>
                         <th scope="col">Vehicle Number</th>
@@ -38,10 +37,10 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{  $challan->customer_id }}</td>
                              <td>{{ $challan->challan_number }}</td>
-                            <td>{{ $challan->challan_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($challan->challan_date)->format('d-m-Y') }}</td>
                             
                              <td>{{ $challan->order_number }}</td>
-                            <td>{{ $challan->order_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($challan->order_date)->format('d-m-Y') }}</td>
                              <td>{{ $challan->vehicle_number }}</td>
                             
                              

@@ -40,8 +40,8 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{  $ord->customer_id }}</td>
                             <td>{{ $ord->order_number }}</td>
-                             <td>{{ $ord->order_date }}</td>
-                              <td>{{ $ord->valid_until }}</td>
+                            <td>{{ \Carbon\Carbon::parse($ord->order_date)->format('d-m-Y') }}</td>
+                              <td>{{ \Carbon\Carbon::parse($ord->valid_until)->format('d-m-Y') }}</td>
                             <td>{{ $ord->sub_total }}</td>
                             <td>{{ $ord->gst_amount }}</td>
                             <td>{{ $ord->total_value }}</td>

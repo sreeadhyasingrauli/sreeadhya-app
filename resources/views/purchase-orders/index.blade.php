@@ -41,7 +41,8 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                              <td>{{ $po->vendor_id }}</td>
                             <td>{{ $po->po_number }}</td>
-                            <td>{{ $po->po_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($po->po_date)->format('d-m-Y') }}</td>
+                             
                             <td>{{ $po->gst_terms }}</td>
                             <td>{{ $po->delivery_terms }}</td>
                             <td>{{ $po->pf_terms }}</td>

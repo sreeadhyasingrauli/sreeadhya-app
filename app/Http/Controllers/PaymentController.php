@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\ProformaInvoice;
 use App\Models\Payment;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ class PaymentController extends Controller
     {
         //
         $invoices  = Invoice::all();
+        $proformaInvoices  = ProformaInvoice::all();
+        $allInvoices = $invoices->merge($proformaInvoices);
         return view('payments.create',compact('allInvoices'));
         
     }

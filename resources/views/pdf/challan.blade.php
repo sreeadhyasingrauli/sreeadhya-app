@@ -18,7 +18,9 @@
 
     <div class="details">
         <strong>Challan No:</strong> {{ $challan->challan_no }}<br>
-        <strong>Date:</strong> {{ $challan->challan_date }}<br>
+        <strong>Date:</strong> {{ \Carbon\Carbon::parse($challan->challan_date)->format('d-m-Y') }}<br>
+        <strong>Order No:</strong> {{ $challan->order_number }}<br>
+        <strong>Order Date:</strong> {{ \Carbon\Carbon::parse($challan->order_date)->format('d-m-Y') }}<br>
         <strong>Customer:</strong> {{ $challan->customer->customer_name }}<br>
     </div>
 

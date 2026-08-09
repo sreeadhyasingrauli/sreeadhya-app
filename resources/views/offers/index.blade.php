@@ -39,10 +39,10 @@
                             <th scope="row">{{ $loop->iteration }}</th>
                              <td>{{ $offern->customer_id }}</td>
                             <td>{{ $offern->offer_number }}</td>
-                            <td>{{ $offern->offer_date }}</td>
+                            <td>{{ \Carbon\Carbon::parse($offern->offer_date)->format('d-m-Y') }}</td>
                             <td>{{ $offern->ref_number }}</td>
-                            <td>{{ $offern->ref_date }}</td>
-                            <td>{{ $offern->valid_until }}</td>
+                            <td>{{ \Carbon\Carbon::parse($offern->ref_date)->format('d-m-Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($offern->valid_until)->format('d-m-Y') }}</td>
                             <td>{{ $offern->subtotal }}</td>
                             <td>{{ $offern->gst_amount }}</td>
                             <td>{{ $offern->total_amount }}</td>
